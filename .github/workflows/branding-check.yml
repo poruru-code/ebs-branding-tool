@@ -38,6 +38,15 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v3
 
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.BRANDING_APP_ID }}
+          private-key: ${{ secrets.BRANDING_APP_PRIVATE_KEY }}
+          owner: poruru-code
+          repositories: edge-serverless-box
+
       - name: Resolve payload
         run: |
           python - <<'PY'
@@ -97,7 +106,7 @@ jobs:
           repository: ${{ env.ESB_REPO }}
           ref: ${{ env.ESB_REF }}
           path: esb
-          token: ${{ secrets.ESB_REPO_TOKEN || github.token }}
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Branding check
         run: |
