@@ -12,7 +12,6 @@ services:
       context: .
       dockerfile: services/common/Dockerfile.os-base
       args:
-        IMAGE_PREFIX: {{SLUG}}
         ROOT_CA_MOUNT_ID: root_ca
         ROOT_CA_CERT_FILENAME: ${ROOT_CA_CERT_FILENAME:-rootCA.crt}
         ROOT_CA_FINGERPRINT: ${ROOT_CA_FINGERPRINT:-}
@@ -26,7 +25,6 @@ services:
       context: .
       dockerfile: services/common/Dockerfile.python-base
       args:
-        IMAGE_PREFIX: {{SLUG}}
         ROOT_CA_MOUNT_ID: root_ca
         ROOT_CA_CERT_FILENAME: ${ROOT_CA_CERT_FILENAME:-rootCA.crt}
         ROOT_CA_FINGERPRINT: ${ROOT_CA_FINGERPRINT:-}
