@@ -87,7 +87,7 @@ services:
     image: scylladb/scylla:latest
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-database
     ports:
-      - "${PORT_DATABASE:-0}:8000" # Alternator API (Host dynamic -> Container 8000)
+      - "${PORT_DATABASE:-8000}:8000" # Alternator API (Host dynamic -> Container 8000)
     volumes:
       - scylladb_data:/var/lib/scylla
     command: --smp 1 --memory ${SCYLLADB_MEMORY:-1}G --developer-mode 1 --alternator-port 8000 --alternator-address 0.0.0.0 --alternator-write-isolation always_use_lwt
@@ -109,7 +109,7 @@ services:
     image: victoriametrics/victoria-logs:latest
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-victorialogs
     ports:
-      - "${PORT_VICTORIALOGS:-0}:9428" # VictoriaLogs UI/API
+      - "${PORT_VICTORIALOGS:-9428}:9428" # VictoriaLogs UI/API
     volumes:
       - victorialogs_data:/victoria-logs-data
     command:
@@ -174,9 +174,9 @@ services:
     entrypoint: /entrypoint.containerd.sh
     privileged: true
     ports:
-      - "${PORT_AGENT_GRPC:-0}:50051"
-      - "${PORT_GATEWAY_HTTPS:-0}:8443" # Gateway port (shared network)
-      - "${PORT_AGENT_METRICS:-0}:9091" # Agent Metrics
+      - "${PORT_AGENT_GRPC:-50051}:50051"
+      - "${PORT_GATEWAY_HTTPS:-443}:8443" # Gateway port (shared network)
+      - "${PORT_AGENT_METRICS:-9091}:9091" # Agent Metrics
     networks:
       - external_network
     environment:
@@ -262,7 +262,7 @@ services:
     image: registry:2
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-registry
     ports:
-      - "${PORT_REGISTRY:-0}:5010"
+      - "${PORT_REGISTRY:-5010}:5010"
     volumes:
       - registry_data:/var/lib/registry
       - ${CERT_DIR:-~/{{HOME_DIR}}/certs}:/certs:ro

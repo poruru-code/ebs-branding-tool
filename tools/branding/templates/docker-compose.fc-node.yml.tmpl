@@ -13,7 +13,7 @@ services:
     entrypoint: /entrypoint.firecracker.sh
     privileged: true
     ports:
-      - "${PORT_AGENT_GRPC:-0}:50051"
+      - "${PORT_AGENT_GRPC:-50051}:50051"
     networks:
       - external_network
     volumes:

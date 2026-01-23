@@ -87,7 +87,7 @@ services:
     image: scylladb/scylla:latest
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-database
     ports:
-      - "${PORT_DATABASE:-0}:8000" # Alternator API (Host dynamic -> Container 8000)
+      - "${PORT_DATABASE:-8000}:8000" # Alternator API (Host dynamic -> Container 8000)
     volumes:
       - scylladb_data:/var/lib/scylla
     command: --smp 1 --memory ${SCYLLADB_MEMORY:-1}G --developer-mode 1 --alternator-port 8000 --alternator-address 0.0.0.0 --alternator-write-isolation always_use_lwt
@@ -109,7 +109,7 @@ services:
     image: victoriametrics/victoria-logs:latest
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-victorialogs
     ports:
-      - "${PORT_VICTORIALOGS:-0}:9428" # VictoriaLogs UI/API
+      - "${PORT_VICTORIALOGS:-9428}:9428" # VictoriaLogs UI/API
     volumes:
       - victorialogs_data:/victoria-logs-data
     command:
@@ -177,7 +177,7 @@ services:
         SERVICE_GID: ${RUN_GID:-1000}
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-gateway
     ports:
-      - "${PORT_GATEWAY_HTTPS:-0}:8443"
+      - "${PORT_GATEWAY_HTTPS:-443}:8443"
     networks:
       - external_network
     volumes:
@@ -287,7 +287,7 @@ services:
       - ${CERT_DIR:-~/{{HOME_DIR}}/certs}:/app/config/ssl:ro
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "${PORT_AGENT_METRICS:-0}:9091"
+      - "${PORT_AGENT_METRICS:-9091}:9091"
     networks:
       - external_network
     command: ["/app/agent"]
