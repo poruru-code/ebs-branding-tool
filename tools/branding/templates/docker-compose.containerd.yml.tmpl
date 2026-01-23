@@ -91,7 +91,6 @@ services:
     volumes:
       - scylladb_data:/var/lib/scylla
     command: --smp 1 --memory ${SCYLLADB_MEMORY:-1}G --developer-mode 1 --alternator-port 8000 --alternator-address 0.0.0.0 --alternator-write-isolation always_use_lwt
-    environment:
     healthcheck:
       test: [ "CMD-SHELL", "cqlsh -e 'DESCRIBE KEYSPACES' || exit 1" ]
       interval: 10s
@@ -116,7 +115,6 @@ services:
     command:
       - "-storageDataPath=/victoria-logs-data"
       - "-retentionPeriod=7d"
-    environment:
     healthcheck:
       test: [ "CMD", "wget", "-q", "-Y", "off", "--spider", "http://127.0.0.1:9428/health" ]
       interval: 10s
