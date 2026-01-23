@@ -135,6 +135,8 @@ services:
       dockerfile: services/provisioner/Dockerfile
       additional_contexts:
         config: ${CONFIG_DIR:-services/gateway/config}
+      args:
+        IMAGE_PREFIX: ${IMAGE_PREFIX:-esb}
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-provisioner
     depends_on:
       database:
@@ -172,6 +174,7 @@ services:
       additional_contexts:
         config: ${CONFIG_DIR:-services/gateway/config}
       args:
+        IMAGE_PREFIX: ${IMAGE_PREFIX:-esb}
         SERVICE_USER: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}
         SERVICE_UID: ${RUN_UID:-1000}
         SERVICE_GID: ${RUN_GID:-1000}
