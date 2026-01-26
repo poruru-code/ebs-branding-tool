@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import os
 import re
 import shlex
@@ -400,6 +401,14 @@ def render_templates(
             existing = target_path.read_text(encoding="utf-8")
             if existing != rendered:
                 mismatches.append(str(target_path))
+                print(f"Diff for {target_path}:")
+                diff = difflib.unified_diff(
+                    existing.splitlines(keepends=True),
+                    rendered.splitlines(keepends=True),
+                    fromfile="current",
+                    tofile="generated",
+                )
+                print("".join(diff))
             continue
 
         if verbose:

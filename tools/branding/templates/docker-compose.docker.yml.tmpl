@@ -189,7 +189,6 @@ services:
         SERVICE_USER: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}
         SERVICE_UID: ${RUN_UID:-1000}
         SERVICE_GID: ${RUN_GID:-1000}
-        SERVICE_GID: ${RUN_GID:-1000}
 
     container_name: ${PROJECT_NAME:-{{SLUG}}-${ENV:-default}}-gateway
     ports:
